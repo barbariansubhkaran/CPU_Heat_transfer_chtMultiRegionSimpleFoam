@@ -11,3 +11,5 @@ viewFactorsGen -noFunctionObjects -region Fluid
 foamJob -parallel -screen  viewFactorsGen -noFunctionObjects -region Fluid
 
 foamJob -parallel -screen chtMultiRegionSimpleFoam
+
+reconstructPar -allRegions
