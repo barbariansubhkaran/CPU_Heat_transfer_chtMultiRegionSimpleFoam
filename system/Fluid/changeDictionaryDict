@@ -1,0 +1,341 @@
+FoamFile
+{
+	version	2.0;
+	format	binary;
+	class	dictionary;
+	location	"system/Fluid";
+	object	changeDictionaryDict;
+}
+p_rgh
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	fixedFluxPressure;
+		}
+		board
+		{
+			type	fixedFluxPressure;
+		}
+		cpu
+		{
+			type	fixedFluxPressure;
+		}
+		fan
+		{
+			type	fixedFluxPressure;
+		}
+		fan_inlet
+		{
+			type	fixedFluxPressure;
+		}
+		outlet
+		{
+			type	fixedValue;
+			value	uniform 100000.0;
+		}
+	}
+}
+p
+{
+	boundaryField
+	{
+	}
+}
+U
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	noSlip;
+		}
+		board
+		{
+			type	noSlip;
+		}
+		cpu
+		{
+			type	noSlip;
+		}
+		fan
+		{
+			type	noSlip;
+		}
+		fan_inlet
+		{
+			type	surfaceNormalFixedValue;
+			refValue	uniform -0.1;
+		}
+		outlet
+		{
+			type	pressureInletOutletVelocity;
+			value	uniform (0.0 0.0 0.0);
+		}
+	}
+}
+T
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	zeroGradient;
+		}
+		board
+		{
+			type	zeroGradient;
+		}
+		cpu
+		{
+			type	compressible::turbulentTemperatureRadCoupledMixed;
+			value	uniform 300.0;
+			qrNbr	none;
+			qr	qr;
+			neighbourFieldName	T;
+			kappaMethod	fluidThermo;
+			kappa	none;
+			Tnbr	T;
+			thicknessLayers	();
+			kappaLayers	();
+		}
+		fan
+		{
+			type	zeroGradient;
+		}
+		fan_inlet
+		{
+			type	totalTemperature;
+			T0	uniform 300.0;
+			gamma	1.4;
+		}
+		outlet
+		{
+			type	inletOutlet;
+			inletValue	uniform 300.0;
+		}
+	}
+}
+k
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	kqRWallFunction;
+			value	uniform 0.009999999776482582;
+		}
+		board
+		{
+			type	kqRWallFunction;
+			value	uniform 0.009999999776482582;
+		}
+		cpu
+		{
+			type	kqRWallFunction;
+			value	uniform 0.009999999776482582;
+		}
+		fan
+		{
+			type	kqRWallFunction;
+			value	uniform 0.009999999776482582;
+		}
+		fan_inlet
+		{
+			type	turbulentIntensityKineticEnergyInlet;
+			value	uniform 0.009999999776482582;
+			intensity	0.05;
+		}
+		outlet
+		{
+			type	zeroGradient;
+		}
+	}
+}
+epsilon
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	epsilonWallFunction;
+			value	uniform 1.0;
+		}
+		board
+		{
+			type	epsilonWallFunction;
+			value	uniform 1.0;
+		}
+		cpu
+		{
+			type	epsilonWallFunction;
+			value	uniform 1.0;
+		}
+		fan
+		{
+			type	epsilonWallFunction;
+			value	uniform 1.0;
+		}
+		fan_inlet
+		{
+			type	turbulentMixingLengthDissipationRateInlet;
+			value	uniform 1.0;
+			mixingLength	0.001;
+		}
+		outlet
+		{
+			type	zeroGradient;
+		}
+	}
+}
+nut
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	nutUWallFunction;
+			value	uniform 0.10999999940395355;
+		}
+		board
+		{
+			type	nutUWallFunction;
+			value	uniform 0.10999999940395355;
+		}
+		cpu
+		{
+			type	nutUWallFunction;
+			value	uniform 0.10999999940395355;
+		}
+		fan
+		{
+			type	nutUWallFunction;
+			value	uniform 0.10999999940395355;
+		}
+	}
+}
+alphat
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	compressible::alphatJayatillekeWallFunction;
+			value	uniform 0.0;
+			Prt	0.85;
+		}
+		board
+		{
+			type	compressible::alphatJayatillekeWallFunction;
+			value	uniform 0.0;
+			Prt	0.85;
+		}
+		cpu
+		{
+			type	compressible::alphatJayatillekeWallFunction;
+			value	uniform 0.0;
+			Prt	0.85;
+		}
+		fan
+		{
+			type	compressible::alphatJayatillekeWallFunction;
+			value	uniform 0.0;
+			Prt	0.85;
+		}
+	}
+}
+Qr
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	greyDiffusiveRadiationViewFactor;
+			value	uniform 0.0;
+			qro	uniform 0.0;
+			T	T;
+		}
+		board
+		{
+			type	greyDiffusiveRadiationViewFactor;
+			value	uniform 0.0;
+			qro	uniform 0.0;
+			T	T;
+		}
+		cpu
+		{
+			type	greyDiffusiveRadiationViewFactor;
+			value	uniform 0.0;
+			qro	uniform 0.0;
+			T	T;
+		}
+		fan
+		{
+			type	greyDiffusiveRadiationViewFactor;
+			value	uniform 0.0;
+			qro	uniform 0.0;
+			T	T;
+		}
+	}
+}
+boundaryRadiationProperties
+{
+	boundaryField
+	{
+		boundaries
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+		board
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+		cpu
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+		fan
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+		fan_inlet
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+		outlet
+		{
+			type	boundaryRadiation;
+			value	uniform 0;
+			mode	lookup;
+			emissivity	1.0;
+			absorptivity	1.0;
+			transmissivity	0.0;
+		}
+	}
+}

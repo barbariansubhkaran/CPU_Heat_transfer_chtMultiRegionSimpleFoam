@@ -1,0 +1,19 @@
+FoamFile
+{
+	version	2.0;
+	format	ascii;
+	class	dictionary;
+	location	"system/Fluid";
+	object	fvOptions;
+}
+temperatureLimit
+{
+	active	true;
+	type	limitTemperature;
+	limitTemperatureCoeffs
+	{
+		min	290.0;
+		max	600.0;
+		selectionMode	all;
+	}
+}
